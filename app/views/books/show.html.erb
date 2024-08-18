@@ -1,9 +1,8 @@
+<div class="show-comment">
+  <h2>Title:</h2><p><%= @book.title %></p>
 
-  <h2>Title</h2>
-  <p><%= @book.title %></p>
-
-  <h2>impression</h2>
-  <p><%= @book.impression %></p>
+  <h2>impression:</h2> <%= @book.impression %>
+</div>
 
   <%= link_to "Edit", edit_book_path(@book.id) %>
   <%= link_to "Beak", books_path(@book.id) %>
