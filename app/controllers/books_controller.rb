@@ -4,10 +4,10 @@ class BooksController < ApplicationController
   end
 
   def create
-    @book = Book.new(book_params)
+    @book = Book.new(@book_params)
     if @book.save
       flash[:notice] = "Book was successfully created."
-      redirect_to books_path(@books.id)
+      redirect_to books_path(@book.id)
     else
       flash.discard(:notice)
       render :new
@@ -36,11 +36,11 @@ class BooksController < ApplicationController
   def destroy
     book = Book.find(params[:id])  # データ（レコード）を1件取得
     book.destroy  # データ（レコード）を削除
-    redirect_to '/lists'  # 投稿一覧画面へリダイレクト
+    redirect_to '/books'  # 投稿一覧画面へリダイレクト
   end
 
   private
   def book_params
-    params.require(:book).permit(:title, :body)
+    params.require(:book).permit(:title, :impression)
   end
 end

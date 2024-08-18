@@ -1,8 +1,9 @@
-<h2>Title</h2>
-<p><%= @book.title %></p>
 
-<h2>Body</h2>
-<p><%= @book.body %></p>
+  <h2>Title</h2>
+  <p><%= @book.title %></p>
 
-<%= link_to "Edit", book_path(book.id) %>
-<%= link_to "Beak", book_path(book.id) %>
+  <h2>impression</h2>
+  <p><%= @book.impression %></p>
+
+  <%= link_to "Edit", edit_book_path(@book.id) %>
+  <%= link_to "Beak", books_path(@book.id) %>
