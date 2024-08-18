@@ -7,7 +7,8 @@ class BooksController < ApplicationController
       redirect_to book_path(@book.id)
     else
       flash.discard(:notice)
-      render :new
+      @books = Book.all
+      render :index
     end
   end
 
