@@ -1,7 +1,16 @@
 <div class="show-comment">
-  <h2>Title:</h2><p><%= @book.title %></p>
-  <h2>impression:</h2><p><%= @book.impression %></p>
+  <p><strong>Title:</strong><%= @book.title %></p>
+  <p><strong>impression:</strong><%= @book.impression %></p>
 </div>
 
-  <%= link_to "Edit", edit_book_path(@book.id) %>
-  <%= link_to "Beak", books_path(@book.id) %>
+<table class="book-column">
+  <thead>
+    <th></th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="border"><%= link_to "Edit", edit_book_path(@book.id) %></td>
+      <td><%= link_to "Beak", books_path(@book.id) %></td>
+    <tr>
+  <tbody>
