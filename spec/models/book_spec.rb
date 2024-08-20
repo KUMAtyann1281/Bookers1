@@ -10,14 +10,14 @@ RSpec.describe Book, "モデルに関するテスト", type: :model do
   end
   context "空白のバリデーションチェック" do
     it "titleが空白の場合にバリデーションチェックされ空白のエラーメッセージが返ってきているか", spec_category: "バリデーションとメッセージ表示" do
-      book = Book.new(title: '', impression:'hoge')
+      book = Book.new(title: '', body:'hoge')
       expect(book).to be_invalid
       expect(book.errors[:title]).to include("can't be blank")
     end
     it "bodyが空白の場合にバリデーションチェックされ空白のエラーメッセージが返ってきているか", spec_category: "バリデーションとメッセージ表示" do
-      book = Book.new(title: 'hoge', impression:'')
+      book = Book.new(title: 'hoge', body:'')
       expect(book).to be_invalid
-      expect(book.errors[:impression]).to include("can't be blank")
+      expect(book.errors[:body]).to include("can't be blank")
     end
   end
   feature "titleを空白で投稿した場合に画面にエラーメッセージが表示されているか" do
@@ -33,13 +33,13 @@ RSpec.describe Book, "モデルに関するテスト", type: :model do
   feature "bodyを空白で投稿した場合に画面にエラーメッセージが表示されているか" do
     before do
       visit books_path
-      fill_in 'book[impression]', with: ''
+      fill_in 'book[body]', with: ''
     end
     scenario "エラーメッセージは正しく表示されるか", spec_category: "バリデーションとメッセージ表示" do
       find("input[name='commit']").click
       expect(page).to have_content "can't be blank"
     end
   end
-
+  
 
 end

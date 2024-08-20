@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 describe '投稿のテスト' do
-  let!(:book) { create(:book,title:'hoge',body:'impression') }
+  let!(:book) { create(:book,title:'hoge',body:'body') }
   describe 'トップ画面(root_path)のテスト' do
-    before do
+    before do 
       visit root_path
     end
     context '表示の確認' do
@@ -23,17 +23,17 @@ describe '投稿のテスト' do
       it "bookの一覧表示(tableタグ)と投稿フォームが同一画面に表示されているか", spec_category: "ビューページでの適切な遷移先設定" do
         expect(page).to have_selector 'table'
         expect(page).to have_field 'book[title]'
-        expect(page).to have_field 'book[impression]'
+        expect(page).to have_field 'book[body]'
       end
       it "bookのタイトルと感想を表示し、詳細・編集・削除のリンクが表示されているか", spec_category: "ビューページでの適切な遷移先設定" do
           (1..5).each do |i|
-            Book.create(title:'hoge'+i.to_s,impression:'impression'+i.to_s)
+            Book.create(title:'hoge'+i.to_s,body:'body'+i.to_s)
           end
           visit books_path
           Book.all.each_with_index do |book,i|
             j = i * 3
             expect(page).to have_content book.title
-            expect(page).to have_content book.impression
+            expect(page).to have_content book.body
             # Showリンク
             show_link = find_all('a')[j]
             expect(show_link.native.inner_text).to match(/show/i)
@@ -55,7 +55,7 @@ describe '投稿のテスト' do
     context '投稿処理に関するテスト' do
       it '投稿に成功しサクセスメッセージが表示されるか', spec_category: "CRUD機能に対するコントローラーの処理と流れ" do
         fill_in 'book[title]', with: Faker::Lorem.characters(number:5)
-        fill_in 'book[impression]', with: Faker::Lorem.characters(number:20)
+        fill_in 'book[body]', with: Faker::Lorem.characters(number:20)
         click_button 'Create Book'
         expect(page).to have_content 'successfully'
       end
@@ -66,7 +66,7 @@ describe '投稿のテスト' do
       end
       it '投稿後のリダイレクト先は正しいか', spec_category: "CRUD機能に対するコントローラーの処理と流れ" do
         fill_in 'book[title]', with: Faker::Lorem.characters(number:5)
-        fill_in 'book[impression]', with: Faker::Lorem.characters(number:20)
+        fill_in 'book[body]', with: Faker::Lorem.characters(number:20)
         click_button 'Create Book'
         expect(page).to have_current_path book_path(Book.last)
       end
@@ -99,7 +99,7 @@ describe '投稿のテスト' do
     context '表示の確認' do
       it '本のタイトルと感想が画面に表示されていること', spec_category: "ビューページでの適切な遷移先設定" do
         expect(page).to have_content book.title
-        expect(page).to have_content book.impression
+        expect(page).to have_content book.body
       end
       it 'Editリンクが表示される', spec_category: "ビューページでの適切な遷移先設定" do
         edit_link = find_all('a')[0]
@@ -108,7 +108,7 @@ describe '投稿のテスト' do
       it 'Backリンクが表示される', spec_category: "ビューページでの適切な遷移先設定" do
         back_link = find_all('a')[1]
         expect(back_link.native.inner_text).to match(/back/i)
-			end
+			end  
     end
     context 'リンクの遷移先の確認' do
       it 'Editの遷移先は編集画面か', spec_category: "ルーティング・URL設定の理解" do
@@ -130,7 +130,7 @@ describe '投稿のテスト' do
     context '表示の確認' do
       it '編集前のタイトルと感想がフォームに表示(セット)されている', spec_category: "CRUD機能に対するコントローラーの処理と流れ" do
         expect(page).to have_field 'book[title]', with: book.title
-        expect(page).to have_field 'book[impression]', with: book.impression
+        expect(page).to have_field 'book[body]', with: book.body
       end
       it 'Update Bookボタンが表示される', spec_category: "CRUD機能に対するコントローラーの処理と流れ" do
         expect(page).to have_button 'Update Book'
@@ -138,11 +138,11 @@ describe '投稿のテスト' do
       it 'Showリンクが表示される', spec_category: "CRUD機能に対するコントローラーの処理と流れ" do
         show_link = find_all('a')[0]
         expect(show_link.native.inner_text).to match(/show/i)
-			end
+			end  
       it 'Backリンクが表示される', spec_category: "CRUD機能に対するコントローラーの処理と流れ" do
         back_link = find_all('a')[1]
         expect(back_link.native.inner_text).to match(/back/i)
-			end
+			end  
     end
     context 'リンクの遷移先の確認' do
       it 'Showの遷移先は詳細画面か', spec_category: "ルーティング・URL設定の理解" do
@@ -165,7 +165,7 @@ describe '投稿のテスト' do
       end
       it '更新に失敗しエラーメッセージが表示されるか', spec_category: "バリデーションとメッセージ表示" do
         fill_in 'book[title]', with: ""
-        fill_in 'book[impression]', with: ""
+        fill_in 'book[body]', with: ""
         click_button 'Update Book'
         expect(page).to have_content 'error'
       end

@@ -3,7 +3,7 @@
 <table class="book-column">
   <thead>
     <th class="title">本のタイトル</th>
-    <th class="impression">感想</th>
+    <th class="body">感想</th>
     <th></th>
     <th></th>
     <th></th>
@@ -12,7 +12,7 @@
     <% @books.each do |book| %>
       <tr>
         <td><%= book.title %></td>
-        <td><%= book.impression %></td>
+        <td><%= book.body %></td>
         <td class="action-links"><%= link_to "Show", book_path(book.id) %></td>
         <td class="action-links"><%= link_to "Edit", edit_book_path(book.id) %></td>
         <td class="action-links"><%= link_to "Destroy", book_path(book.id), method: :delete, "data-confirm" => "Are you sure?" %></td>
@@ -24,11 +24,11 @@
 <h2>New book</h2>
 <div class="book">
   <%= form_with model: @book, url: '/books', method: :post do |f| %>
-    <div class="book-new-errors">
+    <div class="book-errors">
       <% if @book.errors.any? %>
-        <div class="book-new-errors-text">
+        <div class="book-errors-text">
           <strong><%= @book.errors.count %>errors prohibited this book from being saved:</strong>
-          <ul class="book-new-errors-text2">
+          <ul class="book-errors-text2">
             <% @book.errors.full_messages.each do |message| %>
               <li><%= message %></li>
             <% end %>
@@ -38,8 +38,8 @@
     </div>
     <h5>Title</h5>
     <%= f.text_field :title %>
-    <h5>impression</h5>
-    <%= f.text_area :impression %>
+    <h5>body</h5>
+    <%= f.text_area :body %>
     <div class="book-post">
       <%= f.submit 'Create Book' %>
     </div>

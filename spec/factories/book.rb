@@ -1,13 +1,13 @@
 # FactoryBot.define do
 #   factory :book do
 #     sequence(:title) { |n| "title#{n}"}
-#     sequence(:impression) { |n| "impression#{n}"}
+#     sequence(:body) { |n| "body#{n}"}
 #   end
 # end
 
 FactoryBot.define do
   factory :book do
     title { Faker::Lorem.characters(number:5) }
-    impression { Faker::Lorem.characters(number:20) }
+    body { Faker::Lorem.characters(number:20) }
   end
 end
